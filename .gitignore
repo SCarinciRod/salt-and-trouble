@@ -1,0 +1,10 @@
+node_modules/
+dist/
+Temp/
+.superpowers/
+playwright-report/
+test-results/
+*.tsbuildinfo
+.env.local
+.env.*.local
+.vercel/

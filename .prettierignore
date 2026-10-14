@@ -1,0 +1,7 @@
+node_modules/
+dist/
+Temp/
+reports/
+playwright-report/
+test-results/
+public/

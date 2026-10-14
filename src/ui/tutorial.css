@@ -1,0 +1,130 @@
+.tutorial-dialog {
+  width: min(510px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+}
+.tutorial-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.tutorial-heading > span:last-child {
+  font-size: 28px;
+}
+.tutorial-dialog h2 {
+  font-size: 42px;
+  line-height: 1.05;
+}
+.tutorial-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 25px 0;
+}
+.tutorial-controls > div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.tutorial-controls dt {
+  display: flex;
+  gap: 4px;
+  min-width: 102px;
+}
+.tutorial-controls dd {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+.tutorial-controls kbd {
+  color: var(--navy);
+  border-color: #173f4b55;
+}
+.tutorial-dialog .tutorial-footnote {
+  font-size: 10px;
+  line-height: 1.8;
+  color: #526760;
+}
+.tutorial-dismiss {
+  display: block;
+  font-size: 9px;
+  color: #657d78;
+  text-align: center;
+  line-height: 1.8;
+  margin-top: 14px;
+}
+.tutorial-dialog.is-closing {
+  animation: tutorial-out 220ms ease-in forwards;
+}
+.tutorial-dialog.is-closing::backdrop {
+  animation: backdrop-out 220ms ease-in forwards;
+}
+@keyframes tutorial-out {
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+}
+@keyframes backdrop-out {
+  to {
+    opacity: 0;
+  }
+}
+@media (max-width: 500px) {
+  .tutorial-dialog h2 {
+    font-size: 35px;
+  }
+  .tutorial-controls {
+    gap: 12px;
+    margin: 18px 0;
+  }
+  .tutorial-controls > div {
+    gap: 10px;
+  }
+  .tutorial-controls dt {
+    min-width: 94px;
+  }
+  .tutorial-controls dd {
+    font-size: 11px;
+  }
+  .tutorial-dialog {
+    padding: 22px;
+  }
+  .tutorial-dialog .eyebrow {
+    font-size: 7px;
+  }
+}
+@media (max-height: 560px) {
+  .tutorial-dialog {
+    padding: 18px 25px;
+  }
+  .tutorial-dialog h2 {
+    font-size: 26px;
+    margin: 8px 0;
+  }
+  .tutorial-dialog > p {
+    margin: 8px 0;
+    font-size: 10px;
+  }
+  .tutorial-controls {
+    gap: 7px;
+    margin: 12px 0;
+  }
+  .tutorial-controls dd {
+    font-size: 10px;
+  }
+  .tutorial-controls kbd {
+    height: 23px;
+  }
+  .tutorial-heading > span:last-child {
+    font-size: 20px;
+  }
+  .tutorial-dialog .button {
+    min-height: 38px;
+    padding: 8px 16px;
+  }
+  .tutorial-dismiss {
+    margin-top: 8px;
+  }
+}
