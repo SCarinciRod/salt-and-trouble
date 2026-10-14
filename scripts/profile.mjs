@@ -244,7 +244,12 @@ try {
   process.exitCode = 1;
   console.error(error);
 } finally {
-  await writeFile(`${directory}/latest.json`, JSON.stringify(report, null, 2));
+  // Keep metadata readable without putting each frame sample on its own line.
+  const serialized = JSON.stringify(report, null, 2).replace(
+    /("frameIntervals":\s*)\[[\s\S]*?\]/,
+    (_, key) => `${key}${JSON.stringify(report.run.frameIntervals)}`,
+  );
+  await writeFile(`${directory}/latest.json`, serialized);
   if (browser) await browser.close();
   server.kill();
 }

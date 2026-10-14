@@ -6,7 +6,7 @@ Bad decisions. Excellent cannons.
 
 **Source:** https://github.com/SCarinciRod/salt-and-trouble
 
-A comic nautical interpretation of the [Jungle Pirate Battle challenge](https://github.com/junglegaming/game-developer-challenge). Implementation status and verification evidence are tracked in [docs/PROGRESS.md](docs/PROGRESS.md). Public publication status is tracked in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+A comic nautical interpretation of the [Jungle Pirate Battle challenge](https://github.com/junglegaming/game-developer-challenge). Architecture is documented in [ARCHITECTURE.md](ARCHITECTURE.md); delivered verification evidence is listed in [reports/README.md](reports/README.md).
 
 ## Setup
 
@@ -52,11 +52,11 @@ The measured workload uses duration 180s, spawn 15s, seed 1 and held W/D/Space/Q
 
 The frame-rate target is 60 FPS. Results, hardware, browser, resolution, renderer and limitations are documented in [reports/PROFILING.md](reports/PROFILING.md). JS heap and DOM/listener counts after forced collection do not establish GPU VRAM usage or native driver retention.
 
-To validate an already published build, set `PUBLIC_GAME_URL` to its HTTPS address and run `pnpm test:public`. This variable is for the verification command only; the application needs no environment variables. Public tests use fresh contexts and real time, including an actual completed match, refresh and pending-registration recovery.
+To validate an already published build, set `PUBLIC_GAME_URL` to its HTTPS address and run `pnpm test:public`. This variable is for the verification command only; the application needs no environment variables. Public tests use fresh contexts and real time, including an actual completed match, refresh and pending-registration recovery. If Node HTTP checks require a locally trusted certificate authority, Node 24 supports `NODE_USE_SYSTEM_CA=1` to use the operating-system trust store with HTTPS verification enabled.
 
 ## Controls and configuration
 
-W moves forward; A/D turn; Space fires forward. Hold the left/right mouse button over the arena to fire the port/starboard broadside; Q/E remain alternative keyboard shortcuts. Escape pauses. Touch controls use the same actions. Losing focus pauses the match; resume requires an explicit action.
+W moves forward; A/D turn; Space fires forward. Hold the left/right mouse button over the arena to fire the port/starboard broadside; Q/E remain alternative keyboard shortcuts. Escape pauses. Touch controls use the same actions. Losing focus pauses the match; resume requires an explicit action. Mobile supports portrait and landscape; landscape provides more arena space, while both layouts preserve the same logical arena and rules.
 
 Each round starts with a short controls modal. Any key or pointer press dismisses it with a 220 ms fade (immediate for reduced-motion preferences). The first input only closes the guide. The simulation clock starts after dismissal, and neither movement nor firing leaks through that input.
 
@@ -97,6 +97,12 @@ The user selected a comic pirate adventure. The provisional title is Salt & Trou
 
 Game art is supplied by the challenge at source revision `315891441be81ca0bff75cf3c2b0cd2f27f119cd`. See [ASSET_SOURCES.md](ASSET_SOURCES.md) for provenance and license status. Fonts are bundled locally through Fontsource, with included license copies; the app does not fetch Google Fonts at runtime.
 
-Only the 22 referenced challenge assets are shipped. All ship damage variants and dynamically selected island tiles remain. The original pack is available upstream; local unused originals are held outside the repository in ignored Temp storage. [Clean-code review](docs/CODE_QUALITY_REVIEW.md) records the measurements and approved cleanup. `pnpm run format` formats source/tests/scripts/configuration; `pnpm run format:check` checks their consistency.
+Only the 22 referenced challenge assets are shipped. All ship damage variants and dynamically selected island tiles remain. Safe cleanup removed 483 unused assets (15,283,888 bytes), unused declarations and orphan styles. Source was formatted; the optimized output shrank from 17,593,779 to 2,309,747 bytes. The original pack remains upstream and unused originals are preserved locally in ignored Temp storage. `pnpm run format` formats source/tests/scripts/configuration; `pnpm run format:check` checks their consistency.
 
-See [DELIVERY_PLAN.md](DELIVERY_PLAN.md) for the approved schedule and [docs/FINAL_ACCEPTANCE_PLAN.md](docs/FINAL_ACCEPTANCE_PLAN.md) for the final acceptance matrix. [Deployment instructions](docs/DEPLOYMENT.md) record the public Vercel URL and reproduction. Git source-repository handoff remains pending separately from the verified deployment.
+## Delivery and verified scope
+
+The main branch contains source, lockfile, assets, mocks, fixtures, tests and visual baselines. A fresh public Git clone installs the frozen lockfile and builds the same release; `.gitattributes` preserves LF line endings across platforms. Vercel serves the clone's optimized output through Build Output API v3, with no-store caching for the MSW worker. The public deployment is manual; automatic Git deployments are not configured. The included `vercel.json` also supports a normal Vite source deployment with Node 24.
+
+Final executed evidence: 78 unit cases, 125 desktop/mobile E2E cases plus one intentional desktop-only touch skip, ten local production checks and ten anonymous public checks. Actual mobile touch and all versioned visual comparisons pass. Lint, strict types and formatting pass. Public checks confirm entry, worker and main-script equality, options persistence, combat, completed records and pending recovery. Reports and failure traces are included under `reports/`.
+
+The optimized three-minute profile measured 57.35 FPS, frame p95 16.80ms and 21 sampled logical entities using Chromium's SwiftShader software renderer. This misses the 60 FPS target in that run. Five cycles showed 0.51MiB JS-heap growth, stable DOM listener counts and zero combat canvases after exit; SDK/V8 retention is investigated in [reports/PROFILING.md](reports/PROFILING.md). Hardware-GPU performance and a long-run memory plateau are unverified. Recurring weapon cooldowns are configurable; the Shooter's initial 0.5s firing delay remains a fixed simulation constant.

@@ -1,0 +1,17 @@
+[
+  {
+    "signature": "Batcher (e): __proto__,_batchIndexSize,_batchIndexStart,_elements,attributeBuffer,attributeSize,batchIndex,batches,dirty,elementSize,elementStart,geometry,indexBuffer,indexSize,maxTextures,name,shader,uid,vertexSize",
+    "before": 1,
+    "after": 6
+  },
+  {
+    "signature": "BindGroup (Y): __proto__,_dirty,_resourceKeysValue,resources",
+    "before": 2,
+    "after": 7
+  },
+  {
+    "signature": "EmitterListener (a): __proto__,context,fn,once",
+    "before": 99,
+    "after": 104
+  }
+]

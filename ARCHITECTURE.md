@@ -1,6 +1,6 @@
 # Salt & Trouble architecture
 
-This document describes the game, records integration and reproducible verification boundaries. Public deployment status and execution evidence are tracked separately in docs/DEPLOYMENT.md and docs/PROGRESS.md.
+This document describes the game, records integration and reproducible verification boundaries. Deployment and final verification are summarized in README.md; delivered reports are listed in reports/README.md.
 
 ## React and state ownership
 
@@ -64,4 +64,4 @@ The arena uses logical 1024×640 coordinates. A ResizeObserver adjusts renderer 
 
 Browser combat tests drive real controls and natural seeded spawns for the mandatory combat rules. Runtime diagnostics cover exposed-resource cleanup, five enter/exit cycles, texture reuse, low FPS, pause boundaries and density changes. The optimized production build also supports an opt-in read-only profiling observer (`?profile=1&seed=1`), dynamically imported before combat. It records active ticker intervals and samples logical entities/display objects once per second; ordinary sessions incur only an undefined optional callback check. It exposes no input or clock mutation methods and is removed on teardown.
 
-The separate real-time profiling script measures three minutes and five replay/exit cycles with forced-GC heap and DOM counters, preserving before/after heap snapshots. See reports/PROFILING.md for observed results and limits, including modest SDK/V8 heap growth. These measurements do not establish GPU VRAM retention or worst-case catch-up cost after a long visible-tab stall. The main bundle still emits a Vite size warning; load-time optimization is separate from combat FPS. The public deployment and ten anonymous verification cases are recorded in docs/DEPLOYMENT.md.
+The separate real-time profiling script measures three minutes and five replay/exit cycles with forced-GC heap and DOM counters, preserving before/after heap snapshots. Numeric frame arrays are compact in JSON; the complete samples remain available for analysis. See reports/PROFILING.md for observed results and limits, including modest SDK/V8 heap growth. These measurements do not establish GPU VRAM retention or worst-case catch-up cost after a long visible-tab stall. The main bundle still emits a Vite size warning; load-time optimization is separate from combat FPS. README.md records the public deployment and ten anonymous verification cases. Recurring weapon cooldowns live in the typed configuration; the Shooter's initial 0.5s firing delay remains a simulation constant.
