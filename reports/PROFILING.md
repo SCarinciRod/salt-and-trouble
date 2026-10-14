@@ -6,7 +6,7 @@ Measured October 14, 2026 after approved cleanup with the optimized `pnpm build`
 
 Browser: Playwright Chromium 156.0.8078.4, headless, viewport 1365×900, DPR 1. Canvas: 1070×668 physical pixels. **The measured WebGL 2 renderer was ANGLE Vulkan SwiftShader, a software backend. The installed RTX GPU was not the measured rendering device.** No physical-phone or hardware-GPU performance claim follows from this result.
 
-Build entry SHA-256: `02748a6e9e0a9517a65ea139582310fe9682972e4f356c9d141210a8d7592670`. The public Git clone with LF-normalized source generates the identical entry and asset names. Raw renderer/driver metadata and frame intervals are in `profiling/latest.json`.
+Measured build entry SHA-256: `02748a6e9e0a9517a65ea139582310fe9682972e4f356c9d141210a8d7592670`. The public Git clone with LF-normalized source generated the identical entry and asset names. Raw renderer/driver metadata and frame intervals are in `profiling/latest.json`. The final delivery subsequently changes only the profiling collector and its command: lightweight progress snapshots and a 100,000-interval bound. Gameplay and rendering rules are unchanged. Current release entry SHA-256: `d75fb2431cd3c828992b8bd49f44ddcab0d9358844cab582f27887b3c87625c5`.
 
 ## Three-minute workload
 
@@ -46,8 +46,21 @@ Measured WebGL texture, buffer, vertex-array, program and shader wrapper counts 
 
 ## Limits and reproduction
 
-- The measured software renderer misses the 60 FPS target in this run (57.35 FPS aggregate, maximum frame interval 33.5ms). To measure hardware acceleration, run `pnpm run profile -- --headed`, keep Chromium focused and verify the actual renderer identity in the new report; do not infer it from the installed GPU.
+- The measured software renderer misses the 60 FPS target in this run (57.35 FPS aggregate, maximum frame interval 33.5ms). For a visible run in installed Google Chrome, use `pnpm run profile -- --chrome --headed`, keep Chrome focused and verify the actual renderer identity in the new report; do not infer it from the installed GPU.
 - No mobile device performance, extreme spawn stress, GPU VRAM measurement or multi-minute visible-tab stall/catch-up benchmark was performed.
 - Vite reports a 619.81 kB initial JS chunk (190.36 kB gzip). The size warning remains; combat FPS does not establish network startup speed.
 - Heap snapshots include browser and automation infrastructure. Code-cache growth is not automatically an application leak, and stable native wrapper counts do not prove native allocations are zero.
 - Re-running replaces `latest.json` and the two snapshots. Preserve any evidence you need before running another scenario.
+
+## Software versus GPU diagnosis
+
+A focused comparison used the same optimized build, viewport, seed, settings and real W/D/Space/Q/E controls for 45 seconds per browser. Both browsers ran without a visible window. Frame buffers were read only at the boundaries; a DevTools CPU sampling profile ran during each interval. The two browsers differ in version and rendering environment, so this is an environment comparison, not a controlled isolation of every cause of the earlier 57.35 FPS result.
+
+| Browser / actual renderer | FPS | Frame p95 | Renderer task time over 45s | JavaScript time |
+| --- | ---: | ---: | ---: | ---: |
+| Chromium headless shell 156 / SwiftShader software | 59.94 | 16.70ms | 36.80s | 0.93s |
+| Google Chrome 155 / RTX 5070, ANGLE Direct3D11 | 119.91 | 8.40ms | 3.09s | 1.74s |
+
+Both runs reported zero unhandled page errors. The GPU run exceeds the 60 FPS target during this interval. Its lower renderer task time is consistent with software/native rendering overhead in the earlier environment; JavaScript game rules did not dominate the short software CPU sample. The default software browser is not representative of normal execution using the installed GPU. A three-minute hardware or visible-window measurement was not completed; the full three-minute and five-cycle evidence above remains the software baseline.
+
+Raw comparison metadata is in `profiling/renderer-comparison.json`. Decompress `chrome.cpuprofile.gz` and `headless-shell.cpuprofile.gz` and load the profiles in Chrome DevTools Performance. The headless-shell bound previously retained 20,000 frames; the final collector allows 100,000 and exports full samples only once, allowing longer high-refresh measurements without repeated growing-array transfers. These instrumentation changes are not claimed as a gameplay speedup.

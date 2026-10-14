@@ -1,0 +1,177 @@
+{
+  "buildHash": "02748a6e9e0a9517a65ea139582310fe9682972e4f356c9d141210a8d7592670",
+  "results": [
+    {
+      "channel": "headless-shell",
+      "browser": "156.0.8078.4",
+      "renderer": {
+        "vendor": "Google Inc. (Google)",
+        "device": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "canvasWidth": 1070,
+        "canvasHeight": 668,
+        "resolution": 1
+      },
+      "seconds": 45.13333333333205,
+      "fps": 59.93596490256251,
+      "p95MS": 16.700000000004366,
+      "maxMS": 49.89999999999998,
+      "taskSeconds": 36.796192,
+      "scriptSeconds": 0.9253920000000001,
+      "entities": {
+        "ships": 2,
+        "projectiles": 1,
+        "effects": 0
+      },
+      "errors": [],
+      "cpu": [
+        {
+          "function": "(program)",
+          "url": "",
+          "milliseconds": 34880.071
+        },
+        {
+          "function": "(idle)",
+          "url": "",
+          "milliseconds": 10155.366
+        },
+        {
+          "function": "(garbage collector)",
+          "url": "",
+          "milliseconds": 23.379
+        },
+        {
+          "function": "packIndex",
+          "url": "http://127.0.0.1:5176/assets/GCManagedHash-4Su5Sr6b.js",
+          "milliseconds": 4.427
+        },
+        {
+          "function": "packAttributes",
+          "url": "http://127.0.0.1:5176/assets/GCManagedHash-4Su5Sr6b.js",
+          "milliseconds": 3.091
+        },
+        {
+          "function": "set",
+          "url": "http://127.0.0.1:5176/assets/Filter-BXN8QEZZ.js",
+          "milliseconds": 1.877
+        },
+        {
+          "function": "updateLocalTransform",
+          "url": "http://127.0.0.1:5176/assets/Filter-BXN8QEZZ.js",
+          "milliseconds": 1.798
+        },
+        {
+          "function": "pl",
+          "url": "http://127.0.0.1:5176/assets/index-BEgvJ-zz.js",
+          "milliseconds": 1.772
+        },
+        {
+          "function": "_tick",
+          "url": "http://127.0.0.1:5176/assets/Filter-BXN8QEZZ.js",
+          "milliseconds": 1.769
+        },
+        {
+          "function": "advance",
+          "url": "http://127.0.0.1:5176/assets/index-BEgvJ-zz.js",
+          "milliseconds": 1.763
+        },
+        {
+          "function": "requestAnimationFrame",
+          "url": "",
+          "milliseconds": 1.618
+        },
+        {
+          "function": "je",
+          "url": "http://127.0.0.1:5176/assets/RenderTargetSystem-BoTX7oUq.js",
+          "milliseconds": 1.596
+        }
+      ]
+    },
+    {
+      "channel": "chrome",
+      "browser": "155.0.8059.40",
+      "renderer": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "device": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "canvasWidth": 1070,
+        "canvasHeight": 668,
+        "resolution": 1
+      },
+      "seconds": 45.066666666665384,
+      "fps": 119.90599263653371,
+      "p95MS": 8.400000000001455,
+      "maxMS": 41.700000000000045,
+      "taskSeconds": 3.0898529999999997,
+      "scriptSeconds": 1.738855,
+      "entities": {
+        "ships": 2,
+        "projectiles": 0,
+        "effects": 0
+      },
+      "errors": [],
+      "cpu": [
+        {
+          "function": "(idle)",
+          "url": "",
+          "milliseconds": 42127.026
+        },
+        {
+          "function": "(program)",
+          "url": "",
+          "milliseconds": 1226.412
+        },
+        {
+          "function": "packAttributes",
+          "url": "http://127.0.0.1:5176/assets/GCManagedHash-4Su5Sr6b.js",
+          "milliseconds": 158.095
+        },
+        {
+          "function": "packIndex",
+          "url": "http://127.0.0.1:5176/assets/GCManagedHash-4Su5Sr6b.js",
+          "milliseconds": 133.066
+        },
+        {
+          "function": "",
+          "url": "http://127.0.0.1:5176/assets/index-BEgvJ-zz.js",
+          "milliseconds": 75.944
+        },
+        {
+          "function": "clear",
+          "url": "",
+          "milliseconds": 61.485
+        },
+        {
+          "function": "update",
+          "url": "http://127.0.0.1:5176/assets/index-BEgvJ-zz.js",
+          "milliseconds": 56.534
+        },
+        {
+          "function": "break",
+          "url": "http://127.0.0.1:5176/assets/GCManagedHash-4Su5Sr6b.js",
+          "milliseconds": 52.19
+        },
+        {
+          "function": "bufferSubData",
+          "url": "",
+          "milliseconds": 47.159
+        },
+        {
+          "function": "requestAnimationFrame",
+          "url": "",
+          "milliseconds": 46.555
+        },
+        {
+          "function": "render",
+          "url": "http://127.0.0.1:5176/assets/index-BEgvJ-zz.js",
+          "milliseconds": 36
+        },
+        {
+          "function": "_tick",
+          "url": "http://127.0.0.1:5176/assets/Filter-BXN8QEZZ.js",
+          "milliseconds": 28.991
+        }
+      ]
+    }
+  ]
+}

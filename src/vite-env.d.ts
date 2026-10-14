@@ -7,7 +7,7 @@ declare global {
       snapshot: () => ReturnType<Simulation['snapshot']>;
     };
     __gameProfile?: {
-      snapshot: () => {
+      snapshot: (includeFrameData?: boolean) => {
         seed: number;
         config: import('./game/config').GameConfig;
         renderer: {

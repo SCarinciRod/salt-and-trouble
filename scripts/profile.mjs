@@ -54,7 +54,8 @@ try {
     if (attempt === 59) throw new Error('Preview did not start');
     await delay(250);
   }
-  browser = await chromium.launch({ headless: !process.argv.includes('--headed') });
+  const channel = process.argv.includes('--chrome') ? 'chrome' : undefined;
+  browser = await chromium.launch({ headless: !process.argv.includes('--headed'), channel });
   const context = await browser.newContext({
     viewport: { width: 1365, height: 900 },
     deviceScaleFactor: 1,
@@ -90,6 +91,7 @@ try {
     memoryBytes: totalmem(),
     hardware,
     browser: browser.version(),
+    channel: channel ?? 'chromium-headless-shell',
     headless: !process.argv.includes('--headed'),
     viewport: { width: 1365, height: 900 },
     deviceScaleFactor: 1,
@@ -123,7 +125,7 @@ try {
   const started = performance.now();
   for (let interval = 0; interval < 200; interval++) {
     await delay(1000);
-    const state = await profile.evaluate((observer) => observer.snapshot());
+    const state = await profile.evaluate((observer) => observer.snapshot(false));
     if (interval % 15 === 0)
       console.log(
         `Combat: ${state.elapsed.toFixed(1)}s, ${state.hp} HP, ${state.entities.ships} ships, ${state.entities.projectiles} projectiles`,

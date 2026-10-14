@@ -35,7 +35,7 @@ export function attachProfile(app: Application, world: Simulation, seed: number)
     resolution: app.renderer.resolution,
   };
   const profile = {
-    snapshot: () => ({
+    snapshot: (includeFrameData = true) => ({
       seed,
       config: structuredClone(world.config),
       renderer: { ...renderer },
@@ -45,8 +45,8 @@ export function attachProfile(app: Application, world: Simulation, seed: number)
       hp: world.player.hp,
       score: world.score,
       entities: entityCounts(world),
-      frameIntervals: [...frameIntervals],
-      samples: samples.map((sample) => ({ ...sample })),
+      frameIntervals: includeFrameData ? [...frameIntervals] : [],
+      samples: includeFrameData ? samples.map((sample) => ({ ...sample })) : [],
     }),
   };
   window.__gameProfile = profile;
@@ -56,7 +56,7 @@ export function attachProfile(app: Application, world: Simulation, seed: number)
         previous = undefined;
         return;
       }
-      if (previous !== undefined && frameIntervals.length < 20_000)
+      if (previous !== undefined && frameIntervals.length < 100_000)
         frameIntervals.push(time - previous);
       previous = time;
       if (world.elapsed >= sampleAt) {
